@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {switchMap} from "rxjs/operators";
 
 import {Product} from "../../models/product.model";
 import {ProductsService} from "../../services/products.service";
 
 @Component({
   selector: 'app-category',
-  templateUrl: './category.component.html',
+  // templateUrl: './category.component.html',
+  template: `<app-products [products]="products" (onLoadMore)="loadMore()"></app-products>`,
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
@@ -22,17 +24,24 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.categoryId = params.get('id')
-      if (this.categoryId) {
-        console.log('categoryId => ', this.categoryId)
-        this.productsService.getByCategory(this.categoryId, this.limit, this.offset)
-          .subscribe(data => {
-            console.log('Category Products => ', data)
-            this.products = data
-          })
-      }
-    })
+    this.route.paramMap
+      .pipe(
+        switchMap(params => {
+          this.categoryId = params.get('id')
+          if (this.categoryId) {
+            return this.productsService.getByCategory(this.categoryId, this.limit, this.offset)
+          }
+          return []
+        }),
+
+        // Si tenemos más subscribes que dependan uno de otro irían aquí
+        // switchMap()
+        // switchMap()
+        // switchMap()
+      )
+      .subscribe(data => {
+        this.products = data
+      })
   }
 
   loadMore() {
