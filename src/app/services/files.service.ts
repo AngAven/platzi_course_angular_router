@@ -11,7 +11,7 @@ import { FileRta } from './../models/files.model';
 })
 export class FilesService {
 
-  private apiUrl = `${environment.API_URL}/api/files`;
+  private apiUrl = `${environment.API_URL}/api/v1/files`;
 
   constructor(
     private http: HttpClient
