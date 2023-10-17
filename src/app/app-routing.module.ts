@@ -51,7 +51,14 @@ const routes: Routes = [
         component: ProductDetailComponent,
       },
     ]
-  }, {
+  },
+  {
+    path: 'cms',
+    loadChildren: () => import('./cms/cms.module').then(m => {
+      return m.CmsModule
+    })
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }
