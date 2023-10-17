@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { StoreService } from '../../services/store.service'
-import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user.model';
+import {StoreService} from '../../services/store.service'
+import {AuthService} from '../../services/auth.service';
+import {CategoriesService} from "../../services/categories.service";
+
+import {User} from '../../models/user.model';
+import {Category} from "../../models/category.model";
 
 @Component({
   selector: 'app-nav',
@@ -14,16 +17,23 @@ export class NavComponent implements OnInit {
   activeMenu = false;
   counter = 0;
   profile: User | null = null;
+  limit: number = 5
+  offset: number = 0
+  categories : Category[] = []
 
   constructor(
     private storeService: StoreService,
     private authService: AuthService,
-  ) { }
+    private categoriesService: CategoriesService
+  ) {
+  }
 
   ngOnInit(): void {
     this.storeService.myCart$.subscribe(products => {
       this.counter = products.length;
     });
+
+    this.getAllCategories()
   }
 
   toggleMenu() {
@@ -32,9 +42,15 @@ export class NavComponent implements OnInit {
 
   login() {
     this.authService.loginAndGet('john@mail.com', 'changeme')
-    .subscribe(user => {
-      this.profile = user;
-    });
+      .subscribe(user => {
+        this.profile = user;
+      });
   }
 
+  getAllCategories(){
+    this.categoriesService.getAll(this.limit, this.offset)
+    .subscribe(data => {
+      this.categories = data
+    })
+  }
 }
