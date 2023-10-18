@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {SwiperModule} from 'swiper/angular';
 
 import { WebsiteRoutingModule } from './website-routing.module';
+
 import { ImgComponent } from './components/img/img.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -19,7 +20,6 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { LayoutComponent } from './components/layout/layout.component';
-
 
 @NgModule({
   declarations: [

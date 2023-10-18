@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { GridComponent } from './pages/grid/grid.component';
-import { LasyoutComponent } from './components/lasyout/lasyout.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LasyoutComponent,
+    component: LayoutComponent,
     children: [
       {
         path: '/',

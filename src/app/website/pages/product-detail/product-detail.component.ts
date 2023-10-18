@@ -43,5 +43,4 @@ export class ProductDetailComponent implements OnInit {
   goToBack(){
     this.location.back()
   }
-
 }
